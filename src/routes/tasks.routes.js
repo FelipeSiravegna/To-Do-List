@@ -3,7 +3,7 @@ const { Router } = require("express");
 const router = Router();
 
 router.get("/tasks", (req, res) => {
-  res.send("Retrieving a list of tasks");
+  res.send("Retrieving a list of tasks")
 });
 
 router.get("/tasks/:id", (req, res) => {
