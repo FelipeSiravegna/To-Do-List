@@ -7,6 +7,8 @@ const app = express();
 
 //Para ver las peticiones por la consola
 app.use(morgan('dev'))
+//Ahora express entiende los datos que se envíen junto a una petición POST
+app.use(express.json())
 
 app.use(taskRoutes);
 
