@@ -23,7 +23,7 @@ const getTask = async (req, res) => {
       });
     }
 
-    res.json(result.rows[0])
+    res.json(result.rows[0]);
   } catch (error) {
     console.log(error.message);
     res.json({ error: error.message });
@@ -47,7 +47,25 @@ const createTask = async (req, res) => {
 };
 
 const deleteTask = async (req, res) => {
-  res.send("Deleting a task");
+  const { id } = req.params;
+
+  try {
+    const result = await pool.query(
+      "DELETE FROM task WHERE id = $1 RETURNING *",
+      [id]
+    );
+
+    if (result.rowCount === 0) {
+      res.status(404).json({
+        message: "Task not found",
+      });
+    }
+
+    res.sendStatus(204);
+  } catch (error) {
+    console.log(error.message);
+    res.json({ error: error.message });
+  }
 };
 
 const updateTask = async (req, res) => {
