@@ -1,10 +1,12 @@
 const express = require('express')
 const morgan = require('morgan')
+const cors = require('cors')
 
 const taskRoutes = require('./routes/tasks.routes')
 
 const app = express();
 
+app.use(cors)
 //Para ver las peticiones por la consola
 app.use(morgan('dev'))
 //Ahora express entiende los datos que se envíen junto a una petición POST
