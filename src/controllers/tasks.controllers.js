@@ -1,17 +1,16 @@
 const pool = require("../db");
 
-const getAllTasks = async (req, res) => {
+const getAllTasks = async (req, res, next) => {
   try {
     const allTasks = await pool.query("SELECT * FROM task");
 
     res.json(allTasks.rows);
   } catch (error) {
-    console.log(error.message);
-    res.json({ error: error.message });
+    next(error)
   }
 };
 
-const getTask = async (req, res) => {
+const getTask = async (req, res, next) => {
   const { id } = req.params;
 
   try {
@@ -25,12 +24,11 @@ const getTask = async (req, res) => {
 
     res.json(result.rows[0]);
   } catch (error) {
-    console.log(error.message);
-    res.json({ error: error.message });
+    next(error)
   }
 };
 
-const createTask = async (req, res) => {
+const createTask = async (req, res, next) => {
   const { title, description } = req.body;
 
   try {
@@ -41,12 +39,11 @@ const createTask = async (req, res) => {
 
     res.json(result.rows[0]);
   } catch (error) {
-    console.log(error.message);
-    res.json({ error: error.message });
+    next(error)
   }
 };
 
-const deleteTask = async (req, res) => {
+const deleteTask = async (req, res, next) => {
   const { id } = req.params;
 
   try {
@@ -63,12 +60,11 @@ const deleteTask = async (req, res) => {
 
     res.sendStatus(204);
   } catch (error) {
-    console.log(error.message);
-    res.json({ error: error.message });
+    next(error)
   }
 };
 
-const updateTask = async (req, res) => {
+const updateTask = async (req, res, next) => {
   const { id } = req.params;
   const { title, description } = req.body;
 
@@ -83,11 +79,10 @@ const updateTask = async (req, res) => {
         message: "Task not found"
       })
     }
-    
+
     res.json(result.rows[0]);
   } catch (error) {
-    console.log(error.message);
-    res.json({ error: error.message });
+    next(error)
   }
 };
 
