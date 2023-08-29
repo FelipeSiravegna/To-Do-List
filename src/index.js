@@ -7,9 +7,7 @@ const taskRoutes = require('./routes/tasks.routes')
 const app = express();
 
 app.use(cors)
-//Para ver las peticiones por la consola
 app.use(morgan('dev'))
-//Ahora express entiende los datos que se envíen junto a una petición POST
 app.use(express.json())
 
 app.use(taskRoutes);
