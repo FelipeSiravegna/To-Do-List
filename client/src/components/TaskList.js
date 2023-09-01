@@ -27,10 +27,10 @@ export default function TaskList() {
 
     return (
         <>
-            <h1>Task list</h1>
             {tasks.map((task) => (
                 <Card key={task.id}
                     style={{
+                        marginTop: "1rem",
                         marginBottom: "0.7rem",
                         backgroundColor: "#1e272e",
                     }}
