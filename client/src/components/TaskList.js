@@ -10,6 +10,14 @@ export default function TaskList() {
         setTasks(data);
     };
 
+    const handleDelete = async (id) => {
+        await fetch(`http://localhost:3000/tasks/${id}`, {
+            method: "DELETE",
+        })
+
+        setTasks(tasks.filter((task) => task.id !== id));
+    }
+
     useEffect(() => {
         getTasks();
     }, []);
@@ -18,7 +26,7 @@ export default function TaskList() {
         <>
             <h1>Task list</h1>
             {tasks.map((task) => (
-                <Card
+                <Card key={task.id}
                     style={{
                         marginBottom: "0.7rem",
                         backgroundColor: "#1e272e",
@@ -30,9 +38,11 @@ export default function TaskList() {
                             justifyContent: "space-between",
                         }}
                     >
-                        <div style={{
-                            color: "white"
-                        }}>
+                        <div
+                            style={{
+                                color: "white",
+                            }}
+                        >
                             <Typography>{task.title}</Typography>
                             <Typography>{task.description}</Typography>
                         </div>
@@ -49,9 +59,9 @@ export default function TaskList() {
                             <Button
                                 variant="contained"
                                 color="warning"
-                                onClick={() => console.log("Deleting")}
+                                onClick={() => handleDelete(task.id)}
                                 style={{
-                                    marginLeft: "0.5rem"
+                                    marginLeft: "0.5rem",
                                 }}
                             >
                                 Delete
